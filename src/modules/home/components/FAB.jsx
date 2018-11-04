@@ -51,6 +51,7 @@ class FAB extends React.Component {
         ariaLabel="Upload new file"
         className={classes.speedDial}
         icon={<SpeedDialIcon />}
+        onBlur={this._toggleOpen}
         onClick={this._toggleOpen}
         onClose={this._toggleOpen}
         open={this.state.isOpen}
