@@ -17,6 +17,8 @@ import Login from "./modules/authentication/screens/Login";
 import Home from "./modules/home/screens/Home";
 import Register from "./modules/authentication/screens/Register";
 
+import "./App.css";
+
 /**
  * Private router HOC
  */

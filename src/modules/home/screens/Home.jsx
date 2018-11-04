@@ -26,6 +26,7 @@ import {
  * Models
  */
 import { File } from "../../upload/models/File";
+import FAB from "../components/FAB";
 
 const styles = theme => ({
   progress: {
@@ -43,6 +44,8 @@ class Home extends React.Component {
       isVisible: false
     };
   }
+
+  dropRef = null;
 
   _onDrop = files => {
     this._uploadFiles(files);
@@ -100,9 +103,20 @@ class Home extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Dropzone onDrop={this._onDrop} style={{}} disableClick={true}>
+        <Dropzone
+          ref={dropRef => (this.dropRef = dropRef)}
+          onDrop={this._onDrop}
+          style={{ margin: 0 }}
+          disableClick={true}
+        >
           <Attachments />
         </Dropzone>
+
+        <FAB
+          onClick={() => {
+            this.dropRef.open();
+          }}
+        />
 
         <UploadDialog
           isVisible={this.state.isVisible}

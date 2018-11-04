@@ -10,7 +10,7 @@ import { AuthenticationStore } from "../../authentication/AuthenticationStore";
 const styles = theme => ({
   root: {
     width: "100%",
-    marginTop: theme.spacing.unit * 3,
+    height: "100%",
     overflowX: "auto"
   }
 });
