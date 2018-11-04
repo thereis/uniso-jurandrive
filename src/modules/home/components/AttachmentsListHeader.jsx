@@ -58,11 +58,11 @@ class AttachmentsListHeader extends React.Component {
     };
   }
 
-  handleClick = event => {
+  _handleClick = event => {
     this.setState({ anchorEl: event.currentTarget });
   };
 
-  handleClose = () => {
+  _handleClose = () => {
     this.setState({ anchorEl: null });
   };
 
@@ -101,8 +101,8 @@ class AttachmentsListHeader extends React.Component {
                 <IconButton
                   aria-label="Options"
                   aria-owns={anchorEl ? "simple-menu" : undefined}
-                aria-haspopup="true"
-                  onClick={this.handleClick}
+                  aria-haspopup="true"
+                  onClick={this._handleClick}
                 >
                   <MoreVert />
                 </IconButton>
@@ -111,7 +111,7 @@ class AttachmentsListHeader extends React.Component {
                 id="simple-menu"
                 anchorEl={anchorEl}
                 open={Boolean(anchorEl)}
-                onClose={this.handleClose}
+                onClose={this._handleClose}
               >
                 <MenuItem onClick={this.props.onLogoutClick}>Logout</MenuItem>
               </Menu>
