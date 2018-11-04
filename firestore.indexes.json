@@ -1,0 +1,22 @@
+{
+  "indexes": [
+    {
+      "collectionId": "attachments",
+      "state": "READY",
+      "fields": [
+        {
+          "fieldPath": "ra",
+          "mode": "ASCENDING"
+        },
+        {
+          "fieldPath": "uid",
+          "mode": "ASCENDING"
+        },
+        {
+          "fieldPath": "uploadDate",
+          "mode": "DESCENDING"
+        }
+      ]
+    }
+  ]
+}
