@@ -28,7 +28,7 @@ class Service {
 
       // Iterate over files
       files.forEach(async file => {
-        let directory = AuthenticationStore.user.ra;
+        let directory = AuthenticationStore.user.uid;
 
         let checkIfExists = await this.checkIfAlreadyExists(file);
 
@@ -178,7 +178,7 @@ class Service {
   async deleteUserAttachments(user: User, attachments: Attachment[]) {
     attachments.forEach(async attachment => {
       let storageRef = storage.ref(
-        `${user.ra}/${attachment.file.name}.${attachment.file.type}`
+        `${user.uid}/${attachment.file.name}.${attachment.file.type}`
       );
 
       storageRef.delete().then(async () => {
