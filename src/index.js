@@ -18,6 +18,7 @@ import Home from "./modules/home/screens/Home";
 import Register from "./modules/authentication/screens/Register";
 
 import "./App.css";
+import Loading from "./modules/authentication/components/Loading";
 
 /**
  * Private router HOC
@@ -26,14 +27,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props =>
-      AuthenticationStore.user ? (
-        <Component {...props} />
-      ) : (
-        <div>
-          Oooooooooooooi
-          {/*<Loader type="Puff" color="#00BFFF" height="100" width="100" />*/}
-        </div>
-      )
+      AuthenticationStore.user ? <Component {...props} /> : <Loading />
     }
   />
 );
