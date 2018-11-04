@@ -70,7 +70,8 @@
     "@babel/plugin-proposal-decorators": "^7.1.0",
     "@babel/preset-env": "^7.1.0",
     "babel-preset-flow": "^6.23.0",
-    "typescript": "^3.1.6"
+    "typescript": "^3.1.6",
+    "firebase-tools": "^6.0.1"
   },
   "scripts": {
     "start": "node scripts/start.js",
