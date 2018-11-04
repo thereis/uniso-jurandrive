@@ -30,6 +30,7 @@ class Attachments extends Component {
               UploadStore.selectedAttachments
             );
           }}
+          onLogoutClick={() => AuthenticationStore.logoutUser()}
         />
         <AttachmentsList />
       </Paper>

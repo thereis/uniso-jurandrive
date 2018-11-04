@@ -15,11 +15,13 @@ import {
   Toolbar,
   Typography,
   Tooltip,
-  IconButton
+  IconButton,
+  Menu,
+  MenuItem
 } from "@material-ui/core";
 import { lighten } from "@material-ui/core/styles/colorManipulator";
 import DeleteIcon from "@material-ui/icons/Delete";
-import FilterListIcon from "@material-ui/icons/FilterList";
+import MoreVert from "@material-ui/icons/MoreVert";
 
 const styles = theme => ({
   root: {
@@ -48,8 +50,25 @@ const styles = theme => ({
 
 @observer
 class AttachmentsListHeader extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      anchorEl: null
+    };
+  }
+
+  handleClick = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
+
   render() {
     let { classes, numSelected } = this.props;
+    const { anchorEl } = this.state;
 
     return (
       <Toolbar
@@ -77,11 +96,26 @@ class AttachmentsListHeader extends React.Component {
               </IconButton>
             </Tooltip>
           ) : (
-            <Tooltip title="Filter list">
-              <IconButton aria-label="Filter list">
-                <FilterListIcon />
-              </IconButton>
-            </Tooltip>
+            <React.Fragment>
+              <Tooltip title="Options">
+                <IconButton
+                  aria-label="Options"
+                  aria-owns={anchorEl ? "simple-menu" : undefined}
+                aria-haspopup="true"
+                  onClick={this.handleClick}
+                >
+                  <MoreVert />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                id="simple-menu"
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={this.handleClose}
+              >
+                <MenuItem onClick={this.props.onLogoutClick}>Logout</MenuItem>
+              </Menu>
+            </React.Fragment>
           )}
         </div>
       </Toolbar>

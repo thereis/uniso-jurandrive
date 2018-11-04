@@ -4,6 +4,8 @@ import { observable, action } from "mobx";
 import { AuthenticationService } from "./AuthenticationService";
 import { User } from "./models/User";
 
+import { firebase } from "../../firebase";
+
 class Store {
   @observable
   user: User;
@@ -32,6 +34,11 @@ class Store {
     this.user = request;
 
     return request;
+  }
+
+  @action.bound
+  async logoutUser() {
+    await firebase.auth().signOut();
   }
 }
 
