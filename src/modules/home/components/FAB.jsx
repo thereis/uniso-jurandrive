@@ -57,6 +57,7 @@ class FAB extends React.Component {
       >
         {this.state.actions.map(action => (
           <SpeedDialAction
+            open={this.state.isOpen}
             key={action.name}
             icon={action.icon}
             tooltipTitle={action.name}
