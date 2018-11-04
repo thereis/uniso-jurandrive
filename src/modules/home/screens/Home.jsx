@@ -19,7 +19,8 @@ import {
   ListItem,
   ListItemText,
   withStyles,
-  LinearProgress
+  LinearProgress,
+  Snackbar
 } from "@material-ui/core";
 
 /**
@@ -41,11 +42,18 @@ class Home extends React.Component {
 
     this.state = {
       files: [],
-      isVisible: false
+      isVisible: false,
+      isSnackbarVisible: true
     };
   }
 
   dropRef = null;
+
+  _handleSnackbarToggle = () => {
+    let { isSnackbarVisible } = this.state;
+
+    this.setState({ isSnackbarVisible: !isSnackbarVisible });
+  };
 
   _onDrop = files => {
     this._uploadFiles(files);
@@ -109,6 +117,21 @@ class Home extends React.Component {
           style={{ margin: 0 }}
           disableClick={true}
         >
+          <Snackbar
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+            autoHideDuration={3500}
+            open={this.state.isSnackbarVisible}
+            onClose={this._handleSnackbarToggle}
+            ContentProps={{
+              "aria-describedby": "message-id"
+            }}
+            message={
+              <span id="message-id">
+                You can drop multiple files in this page!
+              </span>
+            }
+          />
+
           <Attachments />
         </Dropzone>
 
