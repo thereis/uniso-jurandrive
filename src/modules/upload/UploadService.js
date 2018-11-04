@@ -187,7 +187,7 @@ class Service {
           .doc(attachment.id)
           .delete();
 
-        UploadStore.unselectAllAttachments();
+        UploadStore.selectedAttachments = [];
       });
     });
   }
