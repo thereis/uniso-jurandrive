@@ -1,25 +1,25 @@
 // @flow
 export class User {
-  id: string;
+  uid: string;
   ra: string;
   nome: string;
   email: string;
   sexo: "M" | "F";
-  dataNasc: Date;
+  dataNascimento: Date;
 
   constructor(
-    id: string,
+    uid: string,
     ra: string,
     nome: string,
     email: string,
     sexo: "M" | "F",
-    dataNasc: Date
+    dataNascimento: Date
   ) {
-    this.id = id;
+    this.uid = uid;
     this.ra = ra;
     this.nome = nome;
     this.email = email;
     this.sexo = sexo;
-    this.dataNasc = dataNasc;
+    this.dataNascimento = dataNascimento;
   }
 }

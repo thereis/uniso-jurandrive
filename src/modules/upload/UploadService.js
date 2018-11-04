@@ -94,7 +94,7 @@ class Service {
   ) {
     let newAttachment = new Attachment(
       "",
-      user.id,
+      user.uid,
       user.ra,
       "uploaded",
       new Date(),
@@ -138,7 +138,7 @@ class Service {
       await firestore
         .collection("attachments")
         .where("ra", "==", user.ra)
-        .where("uid", "==", user.id)
+        .where("uid", "==", user.uid)
         .orderBy("uploadDate", "desc")
         .onSnapshot(snapshot => {
           UploadStore.userAttachments = snapshot.docs.map(doc => {
