@@ -54,18 +54,14 @@ class AttachmentRow extends React.Component {
     let { classes, attachment } = this.props;
 
     return (
-      <TableRow
-        selected={true}
-        className={classes.row}
-        onClick={this.props.onClick}
-      >
+      <TableRow selected={true} className={classes.row}>
         <TableCell padding="checkbox">
           <Checkbox
             onClick={() => this._selectAttachment(attachment)}
             checked={attachment.isSelected}
           />
         </TableCell>
-        <TableCell>
+        <TableCell onClick={this.props.onClick}>
           <img
             alt={`${attachment.file.type}`}
             src={`assets/icons/${attachment.file.type}.png`}
@@ -73,12 +69,16 @@ class AttachmentRow extends React.Component {
             onError={() => (this.imgRef.src = "assets/icons/_blank.png")}
           />
         </TableCell>
-        <TableCell component="th" scope="row">
+        <TableCell component="th" scope="row" onClick={this.props.onClick}>
           {attachment.file.name}
         </TableCell>
-        <TableCell>{attachment.ra}</TableCell>
-        <TableCell>{this._formatTime(attachment.uploadDate)}</TableCell>
-        <TableCell>{this._bytesToSize(attachment.file.size)}</TableCell>
+        <TableCell onClick={this.props.onClick}>{attachment.ra}</TableCell>
+        <TableCell onClick={this.props.onClick}>
+          {this._formatTime(attachment.uploadDate)}
+        </TableCell>
+        <TableCell onClick={this.props.onClick}>
+          {this._bytesToSize(attachment.file.size)}
+        </TableCell>
       </TableRow>
     );
   }

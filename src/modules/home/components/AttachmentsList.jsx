@@ -31,6 +31,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Checkbox from "@material-ui/core/Checkbox";
 import CloudDownload from "@material-ui/icons/CloudDownload";
+import FileCopy from "@material-ui/icons/FileCopy";
 
 /**
  * Models
@@ -62,6 +63,7 @@ class AttachmentsList extends React.Component {
   }
 
   imgRef = null;
+  inputRef = null;
 
   _loadAttachments = async () => {
     await UploadStore.loadUserAttachments(AuthenticationStore.user);
@@ -73,6 +75,11 @@ class AttachmentsList extends React.Component {
 
   _handleSelectAttachment = (attachment: Attachment) => {
     this.setState({ isDialogVisible: true, selectedAttachment: attachment });
+  };
+
+  _handleCopyToClipboard = (attachment: Attachment) => {
+    this.inputRef.select();
+    return document.execCommand("copy");
   };
 
   _handleDownloadFile = (attachment: Attachment) => {
@@ -136,6 +143,34 @@ class AttachmentsList extends React.Component {
                 <ListItem
                   button
                   onClick={() =>
+                    this._handleCopyToClipboard(this.state.selectedAttachment)
+                  }
+                >
+                  <ListItemAvatar>
+                    <Avatar className={classes.avatar}>
+                      <FileCopy />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={"Copy download URL"}
+                    secondary={"To share with your friends"}
+                  />
+                  <input
+                    ref={ref => (this.inputRef = ref)}
+                    defaultValue={
+                      this.state.selectedAttachment.storage.downloadURL
+                    }
+                    style={{
+                      opacity: 0.01,
+                      position: "absolute",
+                      height: 0,
+                      overflow: "hidden"
+                    }}
+                  />
+                </ListItem>
+                <ListItem
+                  button
+                  onClick={() =>
                     this._handleDownloadFile(this.state.selectedAttachment)
                   }
                 >
@@ -146,7 +181,9 @@ class AttachmentsList extends React.Component {
                   </ListItemAvatar>
                   <ListItemText
                     primary={"Download"}
-                    secondary={this.state.selectedAttachment.file.name}
+                    secondary={`${this.state.selectedAttachment.file.name}.${
+                      this.state.selectedAttachment.file.type
+                    }`}
                   />
                 </ListItem>
               </List>
