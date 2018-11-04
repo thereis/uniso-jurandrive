@@ -30,10 +30,7 @@ class Store {
   @computed
   get allFilesAreUploaded() {
     if (!this.files) return false;
-
     let counter = this.files.filter(file => file.percentage === 100);
-    console.log("counter: ", counter);
-
     return counter.length === this.files.length;
   }
 

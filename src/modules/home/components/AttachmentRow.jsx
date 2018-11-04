@@ -54,7 +54,11 @@ class AttachmentRow extends React.Component {
     let { classes, attachment } = this.props;
 
     return (
-      <TableRow selected={true} className={classes.row}>
+      <TableRow
+        selected={true}
+        className={classes.row}
+        onClick={this.props.onClick}
+      >
         <TableCell padding="checkbox">
           <Checkbox
             onClick={() => this._selectAttachment(attachment)}

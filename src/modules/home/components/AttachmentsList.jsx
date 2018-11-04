@@ -5,7 +5,16 @@ import * as React from "react";
 /**
  * Dependencies
  */
-import { withStyles } from "@material-ui/core";
+import {
+  withStyles,
+  Dialog,
+  DialogTitle,
+  List,
+  ListItem,
+  ListItemAvatar,
+  Avatar,
+  ListItemText
+} from "@material-ui/core";
 import { withRouter } from "react-router";
 import { observer } from "mobx-react";
 import { AuthenticationStore } from "../../authentication/AuthenticationStore";
@@ -21,6 +30,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Checkbox from "@material-ui/core/Checkbox";
+import CloudDownload from "@material-ui/icons/CloudDownload";
 
 /**
  * Models
@@ -44,7 +54,8 @@ class AttachmentsList extends React.Component {
     super(props);
 
     this.state = {
-      selectedAttachments: []
+      selectedAttachment: null,
+      isDialogVisible: false
     };
 
     this._loadAttachments();
@@ -59,6 +70,18 @@ class AttachmentsList extends React.Component {
   /**
    * Events
    */
+
+  _handleSelectAttachment = (attachment: Attachment) => {
+    this.setState({ isDialogVisible: true, selectedAttachment: attachment });
+  };
+
+  _handleDownloadFile = (attachment: Attachment) => {
+    return window.open(attachment.storage.downloadURL, "_blank");
+  };
+
+  _handleDialogClose = () => {
+    this.setState({ isDialogVisible: false, selectedAttachment: null });
+  };
 
   render() {
     const { classes } = this.props;
@@ -89,13 +112,47 @@ class AttachmentsList extends React.Component {
           {UploadStore.getUserAttachments.length > 0 ? (
             UploadStore.getUserAttachments.map((attachment: Attachment) => {
               return (
-                <AttachmentRow key={attachment.id} attachment={attachment} />
+                <AttachmentRow
+                  key={attachment.id}
+                  attachment={attachment}
+                  onClick={() => this._handleSelectAttachment(attachment)}
+                />
               );
             })
           ) : (
             <React.Fragment />
           )}
         </TableBody>
+
+        {this.state.selectedAttachment !== null ? (
+          <Dialog
+            open={this.state.isDialogVisible}
+            onClose={this._handleDialogClose}
+            aria-labelledby="simple-dialog-title"
+          >
+            <DialogTitle id="simple-dialog-title">Download</DialogTitle>
+            <React.Fragment>
+              <List>
+                <ListItem
+                  button
+                  onClick={() =>
+                    this._handleDownloadFile(this.state.selectedAttachment)
+                  }
+                >
+                  <ListItemAvatar>
+                    <Avatar className={classes.avatar}>
+                      <CloudDownload />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={"Download"}
+                    secondary={this.state.selectedAttachment.file.name}
+                  />
+                </ListItem>
+              </List>
+            </React.Fragment>
+          </Dialog>
+        ) : null}
       </Table>
     );
   }
